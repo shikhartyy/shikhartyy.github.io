@@ -1,0 +1,458 @@
+html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shikhar Tyagi — Flutter & Blockchain Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #060b14; --bg2: #0a1220; --bg3: #0d1929;
+    --glass: rgba(13,25,41,0.7); --border: rgba(255,255,255,0.07);
+    --border-bright: rgba(63,255,194,0.3); --accent: #3fffc2;
+    --accent2: #0df; --accent-dim: rgba(63,255,194,0.1);
+    --text: #e8f0f9; --muted: #6b82a0; --muted2: #3a4f68;
+    --card-bg: rgba(13,25,41,0.8);
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.7; overflow-x: hidden; }
+
+  .orb { position: fixed; border-radius: 50%; filter: blur(110px); pointer-events: none; z-index: 0; }
+  .orb1 { width: 500px; height: 500px; background: rgba(63,255,194,0.05); top: -120px; left: -160px; }
+  .orb2 { width: 400px; height: 400px; background: rgba(0,221,255,0.04); bottom: 60px; right: -100px; }
+  .orb3 { width: 280px; height: 280px; background: rgba(63,255,194,0.03); top: 55%; left: 42%; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    backdrop-filter: blur(24px) saturate(180%);
+    background: rgba(6,11,20,0.75); border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between; padding: 0 48px; height: 64px;
+  }
+  .nav-logo { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--muted); font-size: 14px; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta { padding: 8px 20px; border-radius: 8px; background: var(--accent-dim); border: 1px solid var(--border-bright); color: var(--accent) !important; font-weight: 500 !important; transition: background 0.2s !important; }
+  .nav-cta:hover { background: rgba(63,255,194,0.2) !important; }
+
+  main { position: relative; z-index: 1; max-width: 1060px; margin: 0 auto; padding: 0 32px; }
+
+  /* HERO */
+  .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding-top: 80px; padding-bottom: 60px; }
+  .hero-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 500; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 24px; opacity: 0; animation: fadeUp 0.7s 0.1s forwards; }
+  .hero-tag::before { content: ''; display: block; width: 30px; height: 1px; background: var(--accent); }
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(52px,9vw,88px); font-weight: 800; line-height: 1; letter-spacing: -3px; margin-bottom: 20px; opacity: 0; animation: fadeUp 0.7s 0.2s forwards; }
+  .hero h1 .line2 { display: block; background: linear-gradient(100deg,var(--accent) 0%,var(--accent2) 60%,rgba(255,255,255,0.4) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero-sub { font-size: 17px; color: var(--muted); font-weight: 300; max-width: 580px; margin-bottom: 16px; opacity: 0; animation: fadeUp 0.7s 0.32s forwards; }
+  .hero-sub strong { color: var(--text); font-weight: 400; }
+  .hero-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 36px; opacity: 0; animation: fadeUp 0.7s 0.42s forwards; }
+  .hero-badge { padding: 5px 13px; border-radius: 999px; font-size: 12px; font-weight: 500; background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--muted); }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.7s 0.52s forwards; }
+  .btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; border-radius: 10px; background: var(--accent); color: #060b14; font-family: 'DM Sans',sans-serif; font-size: 15px; font-weight: 500; text-decoration: none; border: none; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(63,255,194,0.28); }
+  .btn-ghost { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; border-radius: 10px; background: transparent; color: var(--text); font-family: 'DM Sans',sans-serif; font-size: 15px; font-weight: 400; text-decoration: none; border: 1px solid var(--border); transition: border-color 0.2s, transform 0.15s; }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.22); transform: translateY(-2px); }
+  .hero-scroll { margin-top: 72px; display: flex; align-items: center; gap: 12px; color: var(--muted2); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; opacity: 0; animation: fadeUp 0.7s 0.7s forwards; }
+  .scroll-line { width: 60px; height: 1px; background: var(--muted2); }
+
+  /* SECTIONS */
+  section { padding: 90px 0; }
+  .section-label { display: flex; align-items: center; gap: 16px; font-size: 11px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .section-heading { font-family: 'Syne',sans-serif; font-size: clamp(30px,5vw,46px); font-weight: 800; letter-spacing: -1.5px; margin-bottom: 48px; line-height: 1.1; }
+
+  /* SKILLS */
+  .skills-categories { display: flex; flex-direction: column; gap: 28px; }
+  .skill-cat-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+  .skills-row { display: flex; flex-wrap: wrap; gap: 10px; }
+  .skill-pill { padding: 8px 16px; border-radius: 10px; background: var(--card-bg); border: 1px solid var(--border); font-size: 13px; font-weight: 500; color: var(--text); transition: border-color 0.2s, transform 0.2s; cursor: default; }
+  .skill-pill:hover { border-color: var(--border-bright); color: var(--accent); transform: translateY(-2px); }
+  .skill-pill.accent { border-color: rgba(63,255,194,0.2); color: var(--accent); background: var(--accent-dim); }
+  .skill-pill.alt { border-color: rgba(0,221,255,0.2); color: var(--accent2); background: rgba(0,221,255,0.07); }
+
+  /* EXPERIENCE */
+  .exp-list { display: flex; flex-direction: column; gap: 20px; }
+  .exp-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 18px; padding: 30px 36px; transition: border-color 0.25s, transform 0.25s; position: relative; overflow: hidden; }
+  .exp-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: linear-gradient(180deg,var(--accent),var(--accent2)); opacity: 0; transition: opacity 0.3s; border-radius: 3px 0 0 3px; }
+  .exp-card:hover { border-color: var(--border-bright); transform: translateY(-3px); }
+  .exp-card:hover::before { opacity: 1; }
+  .exp-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 6px; }
+  .exp-role { font-family: 'Syne',sans-serif; font-size: 18px; font-weight: 700; letter-spacing: -0.3px; }
+  .exp-date { font-size: 12px; color: var(--accent); font-weight: 500; background: var(--accent-dim); padding: 4px 12px; border-radius: 999px; border: 1px solid rgba(63,255,194,0.15); white-space: nowrap; }
+  .exp-org { font-size: 14px; color: var(--muted); margin-bottom: 16px; }
+  .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .exp-bullets li { font-size: 14px; color: var(--muted); padding-left: 16px; position: relative; line-height: 1.6; }
+  .exp-bullets li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 12px; top: 2px; }
+
+  /* PROJECTS */
+  .projects-list { display: flex; flex-direction: column; gap: 18px; }
+  .project-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px; padding: 34px 38px; display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: start; transition: border-color 0.25s, transform 0.25s; position: relative; overflow: hidden; }
+  .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg,var(--accent),var(--accent2),transparent); opacity: 0; transition: opacity 0.3s; }
+  .project-card:hover { border-color: var(--border-bright); transform: translateY(-4px); }
+  .project-card:hover::before { opacity: 1; }
+  .project-featured { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+  .project-featured::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent); animation: pulse 2s infinite; }
+  .project-title { font-family: 'Syne',sans-serif; font-size: 24px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; line-height: 1.2; }
+  .project-desc { color: var(--muted); font-size: 14px; line-height: 1.65; margin-bottom: 18px; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; }
+  .tag { padding: 4px 11px; border-radius: 999px; font-size: 12px; font-weight: 500; background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(63,255,194,0.15); }
+  .tag.alt { background: rgba(0,221,255,0.08); color: var(--accent2); border-color: rgba(0,221,255,0.15); }
+  .tag.gray { background: rgba(255,255,255,0.04); color: var(--muted); border-color: var(--border); }
+  .project-bullets { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+  .project-bullets li { font-size: 13px; color: var(--muted); padding-left: 16px; position: relative; }
+  .project-bullets li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 11px; top: 2px; }
+  .project-number { font-family: 'Syne',sans-serif; font-size: 68px; font-weight: 800; line-height: 1; color: var(--border); letter-spacing: -3px; user-select: none; }
+
+  /* EDUCATION + CERTS */
+  .edu-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 18px; padding: 32px 36px; margin-bottom: 20px; transition: border-color 0.2s, transform 0.2s; }
+  .edu-card:hover { border-color: var(--border-bright); transform: translateY(-3px); }
+  .edu-degree { font-family: 'Syne',sans-serif; font-size: 20px; font-weight: 800; letter-spacing: -0.3px; margin-bottom: 4px; }
+  .edu-univ { font-size: 14px; color: var(--accent); margin-bottom: 4px; }
+  .edu-meta { font-size: 13px; color: var(--muted); }
+  .certs-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap: 12px; }
+  .cert-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; padding: 20px 22px; transition: border-color 0.2s, transform 0.2s; }
+  .cert-card:hover { border-color: var(--border-bright); transform: translateY(-3px); }
+  .cert-issuer { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+  .cert-name { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.4; }
+
+  /* CONTACT */
+  .contact-box { background: var(--card-bg); border: 1px solid var(--border-bright); border-radius: 24px; padding: 64px 56px; text-align: center; position: relative; overflow: hidden; }
+  .contact-box::before { content: ''; position: absolute; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle,rgba(63,255,194,0.07),transparent 70%); top: -80px; right: -60px; pointer-events: none; }
+  .contact-box h2 { font-family: 'Syne',sans-serif; font-size: 40px; font-weight: 800; letter-spacing: -1.5px; margin-bottom: 12px; line-height: 1.1; }
+  .contact-box p { color: var(--muted); font-size: 16px; margin-bottom: 32px; }
+  .contact-links { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+  .contact-detail { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 13px; margin-top: 24px; justify-content: center; flex-wrap: wrap; }
+  .contact-detail a { color: var(--muted); text-decoration: none; }
+  .contact-detail a:hover { color: var(--text); }
+  .sep { color: var(--muted2); }
+
+  footer { border-top: 1px solid var(--border); padding: 28px; text-align: center; color: var(--muted2); font-size: 13px; position: relative; z-index: 1; }
+
+  @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.35;} }
+  .reveal { opacity:0; transform:translateY(26px); transition: opacity 0.65s cubic-bezier(.22,1,.36,1), transform 0.65s cubic-bezier(.22,1,.36,1); }
+  .reveal.visible { opacity:1; transform:none; }
+
+  body::after { content:''; position:fixed; inset:0; pointer-events:none; z-index:200; opacity:0.025; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size:200px 200px; }
+
+  @media (max-width: 700px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    main { padding: 0 20px; }
+    .hero h1 { letter-spacing: -2px; }
+    .project-card { grid-template-columns: 1fr; padding: 26px 22px; }
+    .project-number { display: none; }
+    .contact-box { padding: 36px 24px; }
+    .exp-card { padding: 24px 22px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+
+<nav>
+  <div class="nav-logo">ST</div>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-tag">B.Tech CSE · Bennett University · Greater Noida</div>
+    <h1>
+      Shikhar<br>
+      <span class="line2">Tyagi.</span>
+    </h1>
+    <p class="hero-sub">
+      <strong>Flutter developer & blockchain builder</strong> skilled in cross-platform mobile apps,
+      AI-powered systems, and Web3 — eager to contribute from day one.
+    </p>
+    <div class="hero-badges">
+      <span class="hero-badge">Flutter · Dart</span>
+      <span class="hero-badge">Firebase</span>
+      <span class="hero-badge">Solidity · Web3</span>
+      <span class="hero-badge">FastAPI · Python</span>
+      <span class="hero-badge">Docker · AWS</span>
+      <span class="hero-badge">AI / ML</span>
+    </div>
+    <div class="hero-actions">
+      <a class="btn-primary" href="mailto:shikhar.tyagi02@gmail.com?subject=Opportunity for Shikhar Tyagi">✉ Get in touch</a>
+      <a class="btn-ghost" href="https://www.linkedin.com/in/shikhar-tyagi-6a6b03287/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn-ghost" href="https://github.com/shikhartyy" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      Scroll to explore
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-label reveal">Expertise</div>
+    <div class="section-heading reveal">What I build<br>with.</div>
+    <div class="skills-categories">
+      <div class="reveal">
+        <div class="skill-cat-label">Languages</div>
+        <div class="skills-row">
+          <span class="skill-pill accent">Dart</span>
+          <span class="skill-pill">Java</span>
+          <span class="skill-pill">Python</span>
+          <span class="skill-pill">JavaScript</span>
+          <span class="skill-pill alt">Solidity</span>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="skill-cat-label">Frameworks & Libraries</div>
+        <div class="skills-row">
+          <span class="skill-pill accent">Flutter</span>
+          <span class="skill-pill accent">Firebase</span>
+          <span class="skill-pill">FastAPI</span>
+          <span class="skill-pill">Sentence Transformers</span>
+          <span class="skill-pill">Next.js</span>
+          <span class="skill-pill">Tailwind CSS</span>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="skill-cat-label">Tools & Platforms</div>
+        <div class="skills-row">
+          <span class="skill-pill">Git</span>
+          <span class="skill-pill">GitHub Actions</span>
+          <span class="skill-pill">Docker</span>
+          <span class="skill-pill">Linux</span>
+          <span class="skill-pill">AWS</span>
+          <span class="skill-pill">VS Code</span>
+          <span class="skill-pill">Hardhat</span>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="skill-cat-label">Domains</div>
+        <div class="skills-row">
+          <span class="skill-pill accent">Cross-Platform Mobile</span>
+          <span class="skill-pill alt">Blockchain / Web3</span>
+          <span class="skill-pill alt">AI / ML</span>
+          <span class="skill-pill">Smart Contract Security</span>
+          <span class="skill-pill">DevOps</span>
+          <span class="skill-pill">DeFi</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-label reveal">Experience</div>
+    <div class="section-heading reveal">Where I've<br>contributed.</div>
+    <div class="exp-list">
+
+      <div class="exp-card reveal">
+        <div class="exp-header">
+          <div class="exp-role">Web Development Intern <span style="color:var(--muted);font-weight:400;font-size:14px">(Project Based)</span></div>
+          <div class="exp-date">Jan 2026 – Mar 2026</div>
+        </div>
+        <div class="exp-org">Self / Academic Project</div>
+        <ul class="exp-bullets">
+          <li>Built responsive frontend interfaces using Next.js, TypeScript, and Tailwind CSS — delivering clean, accessible UI across 5+ pages.</li>
+          <li>Implemented backend logic for evidence upload with SHA-256 cryptographic hash generation, guaranteeing data integrity and immutable record storage.</li>
+          <li>Constructed RESTful APIs with database integration to maintain a tamper-resistant audit trail across 3+ data entities.</li>
+        </ul>
+      </div>
+
+      <div class="exp-card reveal">
+        <div class="exp-header">
+          <div class="exp-role">Project Management Head</div>
+          <div class="exp-date">Aug 2025 – Nov 2025</div>
+        </div>
+        <div class="exp-org">Enactus · Bennett University, Greater Noida</div>
+        <ul class="exp-bullets">
+          <li>Directed cross-functional execution of social impact initiatives, coordinating a team of 10+ members across multiple project tracks.</li>
+          <li>Introduced agile task workflows, reducing project delivery turnaround by 30% and strengthening overall team coordination.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-label reveal">Projects</div>
+    <div class="section-heading reveal">Things I've<br>shipped.</div>
+    <div class="projects-list">
+
+      <div class="project-card reveal">
+        <div>
+          <div class="project-featured">Featured · In Progress</div>
+          <div class="project-title">Food Delivery App</div>
+          <p class="project-desc">Cross-platform food delivery app for iOS and Android with real-time order tracking, Firebase auth, and full Figma-to-Flutter UI translation.</p>
+          <div class="project-tags">
+            <span class="tag">Flutter</span>
+            <span class="tag">Firebase</span>
+            <span class="tag gray">Figma</span>
+            <span class="tag gray">iOS & Android</span>
+          </div>
+          <ul class="project-bullets">
+            <li>Real-time order tracking powered by Firestore</li>
+            <li>Full UI/UX flows designed in Figma, translated to responsive Flutter widgets</li>
+            <li>Consistent experience across 2 platforms</li>
+          </ul>
+        </div>
+        <div class="project-number">01</div>
+      </div>
+
+      <div class="project-card reveal">
+        <div>
+          <div class="project-title">BlockGuard</div>
+          <p class="project-desc">AI-powered smart contract security analysis tool using RAG architecture — detects reentrancy, overflow, access control flaws and more in real time.</p>
+          <div class="project-tags">
+            <span class="tag">Python</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag alt">RAG</span>
+            <span class="tag alt">Sentence Transformers</span>
+            <span class="tag alt">OpenAI API</span>
+            <span class="tag gray">Docker</span>
+          </div>
+          <ul class="project-bullets">
+            <li>Sentence Transformers for code embeddings + LLM reasoning to detect 4+ vulnerability types</li>
+            <li>Endee Vector Database for semantic similarity search across contract embeddings</li>
+            <li>Containerized with Docker for consistent CI/CD deployment</li>
+          </ul>
+        </div>
+        <div class="project-number">02</div>
+      </div>
+
+      <div class="project-card reveal">
+        <div>
+          <div class="project-title">EncodeX</div>
+          <p class="project-desc">Secure image-based messaging utility using steganography — embeds confidential messages invisibly within images with negligible transmission overhead.</p>
+          <div class="project-tags">
+            <span class="tag">Python</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag alt">Steganography</span>
+          </div>
+          <ul class="project-bullets">
+            <li>Encode/decode pipelines supporting 3+ image formats with zero visual distortion</li>
+            <li>JavaScript-based interface enabling secure end-to-end message transfer</li>
+          </ul>
+        </div>
+        <div class="project-number">03</div>
+      </div>
+
+      <div class="project-card reveal">
+        <div>
+          <div class="project-title">Mutual Fund DApp</div>
+          <p class="project-desc">Blockchain-based mutual fund with a custom ERC-20 smart contract (MFT), minting 1,000,000 fungible tokens to represent fund units via OpenZeppelin.</p>
+          <div class="project-tags">
+            <span class="tag alt">Solidity</span>
+            <span class="tag alt">ERC-20</span>
+            <span class="tag alt">Hardhat</span>
+            <span class="tag gray">OpenZeppelin</span>
+            <span class="tag gray">JavaScript</span>
+          </div>
+          <ul class="project-bullets">
+            <li>Validated and deployed via Hardhat Ignition with full test-driven practices</li>
+            <li>Full Web3 + DeFi development lifecycle</li>
+          </ul>
+        </div>
+        <div class="project-number">04</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EDUCATION & CERTS -->
+  <section id="education">
+    <div class="section-label reveal">Education</div>
+    <div class="section-heading reveal">Academic<br>background.</div>
+
+    <div class="edu-card reveal">
+      <div class="edu-degree">B.Tech — Computer Science & Engineering</div>
+      <div class="edu-univ">Bennett University (Times of India Group)</div>
+      <div class="edu-meta">Greater Noida, India · Expected August 2027</div>
+    </div>
+
+    <div class="section-label reveal" style="margin-top:48px">Certifications</div>
+    <div class="certs-grid">
+      <div class="cert-card reveal">
+        <div class="cert-issuer">IBM · Coursera</div>
+        <div class="cert-name">Introduction to Artificial Intelligence (AI)</div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-issuer">University at Buffalo · Coursera</div>
+        <div class="cert-name">Blockchain Platforms</div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-issuer">Duke University · Coursera</div>
+        <div class="cert-name">Decentralized Finance (DeFi) Deep Dive</div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-issuer">UC San Diego · Coursera</div>
+        <div class="cert-name">Algorithmic Toolbox</div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-issuer">University of Illinois · Coursera</div>
+        <div class="cert-name">Object-Oriented Data Structures in C++</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" style="padding-bottom:60px">
+    <div class="contact-box reveal">
+      <h2>Let's build<br>something great.</h2>
+      <p>Open to internships, freelance projects, and full-time roles.</p>
+      <div class="contact-links">
+        <a class="btn-primary" href="mailto:shikhar.tyagi02@gmail.com?subject=Opportunity for Shikhar Tyagi">✉ Email Me</a>
+        <a class="btn-ghost" href="https://www.linkedin.com/in/shikhar-tyagi-6a6b03287/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn-ghost" href="https://github.com/shikhartyy" target="_blank" rel="noopener">GitHub</a>
+      </div>
+      <div class="contact-detail">
+        <span>shikhar.tyagi02@gmail.com</span>
+        <span class="sep">·</span>
+        <span>+91 9068794002</span>
+        <span class="sep">·</span>
+        <a href="https://github.com/shikhartyy" target="_blank">github.com/shikhartyy</a>
+        <span class="sep">·</span>
+        <a href="https://linkedin.com/in/shikhar-tyagi" target="_blank">linkedin.com/in/shikhar-tyagi</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Shikhar Tyagi · Flutter & Blockchain Developer · Bennett University · Greater Noida, India · 2025
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 55);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+</body>
+</html>
